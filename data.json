@@ -1,0 +1,505 @@
+{
+  "phishing_domains": [
+    {
+      "domain": "technexus.pl",
+      "type": "C2"
+    },
+    {
+      "domain": "ctldl.windowsupdate.com",
+      "type": "C2"
+    },
+    {
+      "domain": "update-microsoft-security[.]net",
+      "type": "PHISH"
+    },
+    {
+      "domain": "nato-document-verify[.]com",
+      "type": "PHISH"
+    },
+    {
+      "domain": "hobbyinitiative.gov",
+      "type": "C2"
+    }
+  ],
+  "recommendations": [
+    {
+      "mitre": "T1018",
+      "status": "active",
+      "text": "Block external IPs 89.149.178.2, 202.84.73.2, 206.126.236.1"
+    },
+    {
+      "mitre": "T1036",
+      "status": "active",
+      "text": "Analyze suspicious explorer.exe - compare hash to legitimate"
+    },
+    {
+      "mitre": "T1027",
+      "status": "active",
+      "text": "Investigate meeting.rar on CC-Backup for malware staging"
+    },
+    {
+      "mitre": "T1566",
+      "status": "active",
+      "text": "Investigate Microsoft Office suspicious activity"
+    },
+    {
+      "mitre": "T1021",
+      "status": "active",
+      "text": "Monitor core routers for further SSH access"
+    },
+    {
+      "mitre": "M1042",
+      "status": "active",
+      "text": "STRENGTHEN pen - HARDEN mail server against phishing"
+    },
+    {
+      "mitre": "M1047",
+      "status": "active",
+      "text": "SHEAR the sheep - Force password reset for all compromised users"
+    },
+    {
+      "mitre": "M1040",
+      "status": "active",
+      "text": "GATE TMP - Monitor/clean TEMP folders on all workstations"
+    },
+    {
+      "mitre": "M1042",
+      "status": "active",
+      "text": "DISABLE psexec - Block/removal of PsExec tools across network"
+    },
+    {
+      "mitre": "M1034",
+      "status": "active",
+      "text": "Block IP 104.53.221.1 at perimeter - ICMP-based C2"
+    },
+    {
+      "mitre": "T1558",
+      "status": "active",
+      "text": "Investigate 54.59.3.3 - Kerberoasting source"
+    },
+    {
+      "mitre": "M1017",
+      "status": "active",
+      "text": "Reset service account passwords - svc_exchange, svc_mail, svc_backup, svc_app, svc_mssql"
+    },
+    {
+      "mitre": "T1047",
+      "status": "active",
+      "text": "Monitor Domain Controller for WMI-based lateral movement"
+    }
+  ],
+  "suspicious_ips": [
+    {
+      "ip": "1.178.224.2",
+      "label": "OLD SHEPHERD",
+      "status": "BLOCKED",
+      "type": "PRIMARY ATTACKER"
+    },
+    {
+      "ip": "1.20.0.15",
+      "label": "SHEEP",
+      "status": "BLOCKED",
+      "type": "C2"
+    },
+    {
+      "ip": "192.108.28.105",
+      "label": "SHEEP",
+      "status": "BLOCKED",
+      "type": "ATTACKER"
+    },
+    {
+      "ip": "1.146.108.60",
+      "label": "SHEEP",
+      "status": "BLOCKED",
+      "type": "ATTACKER"
+    },
+    {
+      "ip": "89.149.178.2",
+      "label": "RECON",
+      "status": "ACTIVE",
+      "type": "RECON"
+    },
+    {
+      "ip": "202.84.73.2",
+      "label": "RECON",
+      "status": "ACTIVE",
+      "type": "RECON"
+    },
+    {
+      "ip": "206.126.236.1",
+      "label": "HEAVY_RECON",
+      "status": "ACTIVE",
+      "type": "RECON"
+    },
+    {
+      "ip": "psexesvc.exe",
+      "label": "TOOL",
+      "status": "ACTIVE",
+      "type": "TOOL"
+    },
+    {
+      "ip": "%TEMP%",
+      "label": "PATH",
+      "status": "ACTIVE",
+      "type": "PATH"
+    },
+    {
+      "ip": "1.20.0.89",
+      "label": "BAAAD SHEEP",
+      "status": "ACTIVE",
+      "type": "ATTACKER"
+    },
+    {
+      "ip": "104.53.221.1",
+      "label": "OTHER BAAAAD SHEEP",
+      "status": "ACTIVE",
+      "type": "ATTACKER"
+    },
+    {
+      "ip": "54.59.3.3",
+      "label": "HOSTILE",
+      "status": "ACTIVE",
+      "type": "ATTACKER"
+    },
+    {
+      "ip": "201.220.0.22",
+      "label": "HOSTILE",
+      "status": "ACTIVE",
+      "type": "C2"
+    },
+    {
+      "ip": "205.202.2.5",
+      "label": "CC-DC",
+      "status": "ACTIVE",
+      "type": "DOMAIN CONTROLLER"
+    },
+    {
+      "ip": "205.202.6.3",
+      "label": "CC-SALES-1",
+      "status": "COMPROMISED",
+      "type": "WORKSTATION"
+    }
+  ],
+  "threat_intel": [
+    {
+      "mitre": "T1114",
+      "text": "LIKELY: T1114 - Email Collection"
+    },
+    {
+      "mitre": "T1087",
+      "text": "LIKELY: T1087 - Account Discovery"
+    },
+    {
+      "mitre": "T1003",
+      "text": "POSSIBLE: T1003 - OS Credential Dumping"
+    }
+  ],
+  "timeline": [
+    {
+      "desc": "meeting.rar found mixed with important backup files on CC-Backup server",
+      "impact": "Possible malware staging",
+      "severity": "medium",
+      "tactics": "[TA0005]",
+      "tech": "T1027",
+      "time": "APR 22 09:00",
+      "title": "meeting.rar on CC-Backup"
+    },
+    {
+      "desc": "Kibana alert for explorer.exe with different hash than legitimate - under investigation",
+      "impact": "Possible masquerading",
+      "severity": "high",
+      "tactics": "[TA0005]",
+      "tech": "T1036",
+      "time": "APR 22 12:00",
+      "title": "explorer.exe Hash Mismatch"
+    },
+    {
+      "desc": "servicev4 reached out to IP spawn and initiated rundll32 - root cause unaddressed",
+      "impact": "Active persistence mechanism",
+      "severity": "critical",
+      "tactics": "[TA0002]",
+      "tech": "T1059",
+      "time": "APR 22 08:30",
+      "title": "servicev4 Suspicious Behavior"
+    },
+    {
+      "desc": "IT-3 mapped to C:/ shares on CC-Admin-3, CC-Admin-5, CC-Main-8",
+      "impact": "Lateral movement via SMB",
+      "severity": "critical",
+      "tactics": "[TA0008]",
+      "tech": "T1021",
+      "time": "APR 22 13:00",
+      "title": "Unauthorized File Share Mapping"
+    },
+    {
+      "desc": "89.149.178.2, 202.84.73.2 pinged internal devices (1x each). 206.126.236.1 pinged 7 devices.",
+      "impact": "Targeted reconnaissance detected",
+      "severity": "high",
+      "tactics": "[TA0043]",
+      "tech": "T1018",
+      "time": "APR 22 11:30",
+      "title": "External IP Reconnaissance"
+    },
+    {
+      "desc": "servicev1.exe connected to 1.178.224.2:22 (SSH) and 1.20.0.15:443",
+      "impact": "External C2 communication detected",
+      "severity": "critical",
+      "tactics": "[TA0011]",
+      "tech": "T1071",
+      "time": "APR 21 07:00",
+      "title": "ServiceV1 External Connections"
+    },
+    {
+      "desc": "Attacker used compromised workstation to SSH into core network routers.",
+      "impact": "Network infrastructure compromised",
+      "severity": "critical",
+      "tactics": "[TA0008]",
+      "tech": "T1021.004",
+      "time": "APR 22 11:20",
+      "title": "SSH to Core Routers"
+    },
+    {
+      "desc": "1.146.108.60 scanned DMZ subnet 205.202.1.0",
+      "impact": "Network topology exposed",
+      "severity": "medium",
+      "tactics": "[TA0043]",
+      "tech": "T1595",
+      "time": "APR 19 10:15",
+      "title": "Network Ping Sweep"
+    },
+    {
+      "desc": "Breached SMTP server (205.202.1.2) through anonymous login",
+      "impact": "Unauthorized server access",
+      "severity": "high",
+      "tactics": "[TA0001]",
+      "tech": "T1078",
+      "time": "APR 19 10:30",
+      "title": "SMTP Anonymous Login"
+    },
+    {
+      "desc": "Stolen credentials from Important folder - 5 user credentials",
+      "impact": "5 user credentials stolen",
+      "severity": "critical",
+      "tactics": "[TA0010]",
+      "tech": "T1041",
+      "time": "APR 19 10:45",
+      "title": "File Exfiltration"
+    },
+    {
+      "desc": "Sent HELO emails to all users",
+      "impact": "Social engineering",
+      "severity": "medium",
+      "tactics": "[TA0043]",
+      "tech": "T1072",
+      "time": "APR 19 11:00",
+      "title": "Email Compromise"
+    },
+    {
+      "desc": "5 stolen accounts logged in. Shared pens mapped to 12+ systems.",
+      "impact": "!!! 12 SYSTEMS COMPROMISED !!!",
+      "severity": "critical",
+      "tactics": "[TA0008]",
+      "tech": "T1078",
+      "time": "APR 20 11:30",
+      "title": "THE FLOCK ATTACKS"
+    },
+    {
+      "desc": "The flock spreads across network - shared drives on every machine",
+      "impact": "FULL NETWORK COMPROMISE",
+      "severity": "critical",
+      "tactics": "[TA0008]",
+      "tech": "T1021",
+      "time": "APR 20 12:00",
+      "title": "Lateral Movement"
+    },
+    {
+      "desc": "NEW THREAT VECTOR: Multiple subnets (Admin/Sales/Ops) targeted. Spear phishing confirmed as initial access.",
+      "impact": "Second wave attack detected",
+      "severity": "high",
+      "tactics": "",
+      "tech": "",
+      "time": "APR 19 1300",
+      "title": "SECOND WAVE ATTACK - IR-2026-0420-B"
+    },
+    {
+      "desc": "INITIAL ACCESS VECTOR CONFIRMED. Staff clicked malicious links/attachments.",
+      "impact": "Entry point identified",
+      "severity": "critical",
+      "tactics": "[TA0001]",
+      "tech": "T1566",
+      "time": "APR 20 1400",
+      "title": "Spear Phishing Entry"
+    },
+    {
+      "desc": "psexesvc.exe used to create remote shells. Attacker executed whoami commands.",
+      "impact": "Admin/Sales/Ops workstations compromised",
+      "severity": "critical",
+      "tactics": "[TA0008]",
+      "tech": "T1021.003",
+      "time": "APR 20 0730",
+      "title": "Remote Shell via Named Pipes"
+    },
+    {
+      "desc": "Malicious code injected into DLL libraries on multiple systems.",
+      "impact": "Memory-based persistence",
+      "severity": "high",
+      "tactics": "[TA0004]",
+      "tech": "T1055",
+      "time": "APR 21 12:00",
+      "title": "DLL Injection"
+    },
+    {
+      "desc": "Attacker started and stopped services on compromised workstations.",
+      "impact": "Service-level persistence",
+      "severity": "medium",
+      "tactics": "[TA0003]",
+      "tech": "T1569",
+      "time": "APR 20 0730",
+      "title": "Service Manipulation"
+    },
+    {
+      "desc": "Artifacts placed in TMP folder and deleted. Unable to retrieve forensic evidence.",
+      "impact": "FORENSICS COMPROMISED",
+      "severity": "critical",
+      "tactics": "[TA0005]",
+      "tech": "T1070",
+      "time": "APR 20 11:00",
+      "title": "Defense Evasion - TMP Obfuscation"
+    },
+    {
+      "desc": "104.53.221.1 sending ICMP to 205.202.5.5 - used to conceal TCP comm to port 80",
+      "impact": "C2 channel discovered over ICMP",
+      "severity": "critical",
+      "tactics": "[TA0011]",
+      "tech": "T1095",
+      "time": "APR 23 13:00",
+      "title": "C2 Over ICMP - SPOT-C Report"
+    },
+    {
+      "desc": "205.202.6.3 to 205.202.2.5 - WMI used to execute commands on Domain Controller",
+      "impact": "Domain Controller accessed via WMI",
+      "severity": "critical",
+      "tactics": "[TA0008]",
+      "tech": "T1047",
+      "time": "APR 23 07:00",
+      "title": "CC-Sales-1 Lateral Movement via WMI"
+    },
+    {
+      "desc": "Kerberos auth via port 88, WMI lateral movement",
+      "impact": "Credential-based lateral movement",
+      "severity": "critical",
+      "tactics": "[TA0006]",
+      "tech": "T1558",
+      "time": "APR 21 04:24",
+      "title": "CC-Sales-1 Kerberos Auth to Domain Controller"
+    },
+    {
+      "desc": "Connected to 205.202.5.1:22, 201.220.0.22:443. DNS to ctldl.windowsupdate.com, technexus.pl",
+      "impact": "C2 communication from services",
+      "severity": "critical",
+      "tactics": "[TA0008]",
+      "tech": "T1021",
+      "time": "APR 20 13:55",
+      "title": "ServiceV1/ServiceV2 SSH and External Connections"
+    },
+    {
+      "desc": "Unzipped from meeting.rar (outlook.exe). Creates servicev1.exe and servicev4.exe",
+      "impact": "Initial access via phishing",
+      "severity": "critical",
+      "tactics": "[TA0001]",
+      "tech": "T1566",
+      "time": "APR 20 13:00",
+      "title": "Document.pdf.exe Entry Point - Reverse Shell"
+    },
+    {
+      "desc": "104.53.221.1 ping sweep to 205.202.[2-8].0",
+      "impact": "Reconnaissance",
+      "severity": "medium",
+      "tactics": "[TA0043]",
+      "tech": "T1018",
+      "time": "APR 20 07:39",
+      "title": "Ping Sweep from 104.53.221.1"
+    },
+    {
+      "desc": "Administrator: 11 failed, larry.jones: 2, bettye.rush: 1, sammy.curtis: 1",
+      "impact": "Credential brute force",
+      "severity": "high",
+      "tactics": "[TA0006]",
+      "tech": "T1110",
+      "time": "APR 19 13:00",
+      "title": "Failed Logon Attempts - Credential Brute Force"
+    },
+    {
+      "desc": "1.146.108.60 sent HELO emails to multiple users - no attachments",
+      "impact": "Possible phishing target identification",
+      "severity": "medium",
+      "tactics": "[TA0001]",
+      "tech": "T1071",
+      "time": "APR 19 04:25",
+      "title": "SMTP Traffic from 1.146.108.60"
+    },
+    {
+      "desc": "1.146.108.60 to 205.202.1.2:445 IPC$ pipe creation",
+      "impact": "Possible reverse shell via SMB",
+      "severity": "critical",
+      "tactics": "[TA0008]",
+      "tech": "T1021",
+      "time": "APR 19 04:00",
+      "title": "SMB IPC Pipe Access - Potential Reverse Shell"
+    },
+    {
+      "desc": "1.146.108.60 sent emails to many addresses with 1/1000 sec interval",
+      "impact": "Mass phishing campaign",
+      "severity": "high",
+      "tactics": "[TA0043]",
+      "tech": "T1071",
+      "time": "APR 19 04:26",
+      "title": "Mass Email Distribution - user@example.com"
+    },
+    {
+      "desc": "104.53.221.1 ping sweep to 205.202.[3-8].0",
+      "impact": "Reconnaissance",
+      "severity": "medium",
+      "tactics": "[TA0043]",
+      "tech": "T1018",
+      "time": "APR 19 10:01",
+      "title": "Ping Sweep 104.53.221.1"
+    },
+    {
+      "desc": "1.146.108.60 port scan on 205.202.1.2",
+      "impact": "Reconnaissance",
+      "severity": "medium",
+      "tactics": "[TA0043]",
+      "tech": "T1046",
+      "time": "APR 19 03:13",
+      "title": "Port Scan on SMTP Server"
+    },
+    {
+      "desc": "1.146.108.60 to 205.202.1.[2,3,4] on ports 0,21,22,25,110,139,445",
+      "impact": "Multi-port reconnaissance",
+      "severity": "high",
+      "tactics": "[TA0043]",
+      "tech": "T1046",
+      "time": "APR 19 08:31",
+      "title": "Suspicious External Traffic to Multiple Ports"
+    },
+    {
+      "desc": "104.53.221.1 ping sweep to 53 IPs in 205.202.0.0/16",
+      "impact": "Large scale reconnaissance",
+      "severity": "medium",
+      "tactics": "[TA0043]",
+      "tech": "T1018",
+      "time": "APR 18 02:00",
+      "title": "Ping Sweep 53 Hosts - 104.53.221.1"
+    },
+    {
+      "desc": "54.59.3.3 requesting TGTs with RC4 (0x17) encryption - svc_exchange, svc_mail, svc_backup, svc_app, svc_mssql, krbtgt",
+      "impact": "Kerberoasting - service account compromise",
+      "severity": "critical",
+      "tactics": "[TA0006]",
+      "tech": "T1558",
+      "time": "APR 16 02:57",
+      "title": "Kerberoasting on Domain Controller"
+    }
+  ]
+}
