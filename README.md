@@ -106,3 +106,19 @@ All incident data is stored in `data.json` and loaded on startup. The structure 
 - **Multi-APT selector** — Add an APT picker (dropdown or route parameter) so analysts can switch between different threat actor campaigns (APT28, APT41, Lazarus, etc.) and load their respective IOCs, timelines, reports, and threat intelligence on the fly. Support loading separate data profiles per campaign.
 
 - **Theme & style customization** — Add a theme switcher with multiple visual presets (e.g., Wolf Den blue, red team dark, SOC green) so teams can customize the look without touching CSS. Support custom logos, accent colors, and font preferences loaded via config. Enable per-team branding for organizations running their own IR dashboards.
+
+- **Fix network diagram page** — Fix and enhance the network map visualization. Currently nodes are rendered as static divs with no connection lines drawn between them. Add proper SVG/Canvas-based edge rendering, zoom/pan controls, and support for interactive node placement. Improve the draw.io XML parser to reliably handle nested styles, extract edge/relationship data, and correctly classify node types.
+
+- **Authentication & access control** — Add login-based authentication to protect the admin console and API. Support role-based access (viewer, analyst, admin) so teams can safely share read-only access without exposing write capabilities.
+
+- **Database backend** — Replace flat `data.json` persistence with SQLite or PostgreSQL. Enables concurrent multi-user access, data integrity, historical tracking, and efficient querying of incidents and IOCs.
+
+- **Real-time collaboration** — Add WebSocket or Server-Sent Events so multiple analysts viewing the dashboard simultaneously see live updates, new timeline events, and IOC status changes without manual refresh.
+
+- **Export & reporting** — Generate PDF incident reports, executive summaries, and bulk IOC exports. Support threat intel formats like STIX/TAXII and MISP for integration with existing SOC tooling.
+
+- **ATT&CK Navigator integration** — Visualize mapped MITRE ATT&CK techniques directly on the official attack matrix, showing technique coverage and kill chain progression.
+
+- **OSINT enrichment** — Auto-enrich IOCs by pulling data from external sources like VirusTotal, AbuseIPDB, or MISP feeds to provide context on threat actors, malware families, and campaign attribution.
+
+- **Docker deployment** — Package with Docker Compose for zero-config deployment, making it easy to spin up on any infrastructure for incident response exercises or live operations.
