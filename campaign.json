@@ -1,0 +1,37 @@
+{
+  "operation_name": "Operation Digital Fortitude",
+  "subtitle": "Gdynia Port Network | Incident Response",
+  "description": "Operation Digital Fortitude - Tracking multiple threat vectors across GPN network.",
+  "team": {
+    "name": "Fenrir Wolves",
+    "description": "Incident Response Unit",
+    "members": ["\ud83d\udc3a \u03b1 Wolf 1", "\ud83d\udc3a \u03b2 Wolf 2", "\ud83d\udc3a \u03b3 Wolf 3", "\ud83d\udc3a \u03b4 Wolf 4", "\ud83d\udc3a \u03b5 Wolf 5"]
+  },
+  "dashboard_title": "\ud83d\udc3a WOLF DEN DASHBOARD",
+  "status": "HUNTING",
+  "stats": {
+    "ioc_label": "Active IOCs",
+    "users_label": "Compromised Users",
+    "systems_label": "Affected Systems",
+    "mitre_label": "MITRE Techs",
+    "status_label": "Status"
+  },
+  "alert_banner": {
+    "title": "\u26a0 ACTIVE INCIDENT - CRITICAL | IR-2026-0420-B",
+    "message": "NEW: Attacker 192.108.28.105 | Admin/Sales/Ops Subnets | Remote Shells via Pipes | Spear Phishing Entry"
+  },
+  "kill_chain_title": "\ud83d\udc3a ATTACK CHAIN - THE STAMPEDE",
+  "kill_chain_phases": [
+    {"name": "Initial Access", "status": "active"},
+    {"name": "Execution", "status": "active"},
+    {"name": "Persistence", "status": "active"},
+    {"name": "Priv Esc", "status": "active"},
+    {"name": "Defense Evasion", "status": "hunt"}
+  ],
+  "panels": {
+    "suspicious_ips_title": "\ud83d\udc11 SUSPICIOUS SHEEP",
+    "phishing_domains_title": "\ud83d\udc11 PHISHING PASTURES"
+  },
+  "threat_intel_title": "\ud83d\udc3a THREAT INTELLIGENCE - EXPECTED NEXT MOVES",
+  "recommendations_title": "\ud83d\udc3a RECOMMENDED ACTIONS - UPDATED"
+}

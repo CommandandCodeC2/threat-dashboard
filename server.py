@@ -12,6 +12,7 @@ BASE_DIR = os.path.dirname(__file__)
 DASHBOARD_PATH = os.path.join(BASE_DIR, 'dashboard.html')
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
 DATA_FILE = os.path.join(BASE_DIR, 'data.json')
+CAMPAIGN_FILE = os.path.join(BASE_DIR, 'campaign.json')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 DEFAULT_DATA = {
@@ -52,6 +53,19 @@ def save_data(data):
     with open(DATA_FILE, 'w') as f:
         json.dump(data, f, indent=2)
 
+def load_campaign():
+    if os.path.exists(CAMPAIGN_FILE):
+        try:
+            with open(CAMPAIGN_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            pass
+    return {}
+
+def save_campaign(data):
+    with open(CAMPAIGN_FILE, 'w') as f:
+        json.dump(data, f, indent=2)
+
 @app.route('/api/data')
 def get_data():
     return jsonify(load_data())
@@ -62,12 +76,22 @@ def update_data():
     save_data(data)
     return jsonify({"success": True})
 
+@app.route('/api/campaign')
+def get_campaign():
+    return jsonify(load_campaign())
+
+@app.route('/api/campaign', methods=['POST'])
+def update_campaign():
+    data = request.json
+    save_campaign(data)
+    return jsonify({"success": True})
+
 ADMIN_TEMPLATE = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Operation Digital Fortitude</title>
+    <title>Admin - CampaignDashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -118,9 +142,19 @@ ADMIN_TEMPLATE = '''
     </div>
     <div class="main-content">
     <div class="header">
-        <h1>Admin Console - Operation Digital Fortitude</h1>
+        <h1>Admin Console - <span id="adminOpName"></span></h1>
     </div>
     <div class="container">
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2>⚙️ Campaign Settings</h2>
+            <div class="item">
+                <div class="item-row"><label>Operation</label><input id="cfgOpName" placeholder="Operation name"></div>
+                <div class="item-row"><label>Subtitle</label><input id="cfgSubtitle" placeholder="Subtitle"></div>
+                <div class="item-row"><label>Description</label><input id="cfgDesc" placeholder="Campaign description"></div>
+                <div class="item-row"><label>Status</label><input id="cfgStatus" placeholder="HUNTING / CONTAINED / CLOSED"></div>
+            </div>
+        </div>
+
         <div class="card">
             <h2>🐑 Suspicious IPs <span class="count" id="ipCount">0</span></h2>
             <div id="ipList"></div>
@@ -151,14 +185,38 @@ ADMIN_TEMPLATE = '''
     
     <script>
         let data = null;
-        
-        function loadData() {
-            fetch('/api/data').then(r => r.json()).then(d => {
+        let campaign = null;
+
+        function loadAll() {
+            Promise.all([
+                fetch('/api/data').then(r => r.json()),
+                fetch('/api/campaign').then(r => r.json())
+            ]).then(([d, c]) => {
                 data = d;
+                campaign = c;
+                renderCampaign(c);
                 renderAll();
             });
         }
-        
+
+        function renderCampaign(c) {
+            document.getElementById('adminOpName').textContent = c.operation_name || 'Dashboard';
+            document.getElementById('cfgOpName').value = c.operation_name || '';
+            document.getElementById('cfgSubtitle').value = c.subtitle || '';
+            document.getElementById('cfgDesc').value = c.description || '';
+            document.getElementById('cfgStatus').value = c.status || '';
+        }
+
+        function saveCampaign() {
+            return {
+                ...campaign,
+                operation_name: document.getElementById('cfgOpName').value,
+                subtitle: document.getElementById('cfgSubtitle').value,
+                description: document.getElementById('cfgDesc').value,
+                status: document.getElementById('cfgStatus').value
+            };
+        }
+
         function renderAll() {
             renderIPs();
             renderDomains();
@@ -298,16 +356,24 @@ ADMIN_TEMPLATE = '''
         }
         
         function saveAll() {
-            fetch('/api/data', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            }).then(r => r.json()).then(d => {
+            const campData = saveCampaign();
+            Promise.all([
+                fetch('/api/data', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                }).then(r => r.json()),
+                fetch('/api/campaign', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(campData)
+                }).then(r => r.json())
+            ]).then(() => {
                 alert('✅ All changes saved successfully!');
             });
         }
-        
-        loadData();
+
+        loadAll();
     </script>
 </div>
 </body>
@@ -383,7 +449,7 @@ HTML_TEMPLATE = '''
     </div>
     <div class="main-content">
     <div class="header">
-        <h1>Network Map - Operation Digital Fortitude</h1>
+        <h1>Network Map - CampaignDashboard</h1>
     </div>
     <div class="container">
         <div class="tabs">
@@ -460,6 +526,12 @@ HTML_TEMPLATE = '''
             document.getElementById('map-view').style.display = tab === 'map' ? 'block' : 'none';
             document.getElementById('storyboard-view').style.display = tab === 'storyboard' ? 'block' : 'none';
         }
+        fetch('/api/campaign').then(r => r.json()).then(c => {
+            if (c.operation_name) {
+                document.title = 'Network Map - ' + c.operation_name;
+                document.querySelector('.header h1').textContent = 'Network Map - ' + c.operation_name;
+            }
+        });
     </script>
     </div>
 </body>
@@ -648,7 +720,7 @@ REPORTS_TEMPLATE = '''
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IR Reports - Operation Digital Fortitude</title>
+    <title>IR Reports - CampaignDashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -693,7 +765,7 @@ REPORTS_TEMPLATE = '''
     </div>
     <div class="main-content">
     <div class="header">
-        <h1>IR Reports - Operation Digital Fortitude</h1>
+        <h1>IR Reports - CampaignDashboard</h1>
     </div>
     <div class="container">
         <div class="search-box">
@@ -934,6 +1006,12 @@ REPORTS_TEMPLATE = '''
                 }
             });
         }
+        fetch('/api/campaign').then(r => r.json()).then(c => {
+            if (c.operation_name) {
+                document.title = 'IR Reports - ' + c.operation_name;
+                document.querySelector('.header h1').textContent = 'IR Reports - ' + c.operation_name;
+            }
+        });
     </script>
     </div>
 </body>
