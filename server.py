@@ -286,7 +286,7 @@ ADMIN_TEMPLATE = '''
         
         function renderTimelineItem(obj, idx) {
             const timeStr = obj.time || '';
-            const dateMatch = timeStr.match(/([A-Z]+)\s*(\d+)/i);
+            const dateMatch = timeStr.match(/([A-Z]+)\\s*(\\d+)/i);
             let isoDate = '';
             if (dateMatch) {
                 const months = {JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11};
@@ -296,7 +296,7 @@ ADMIN_TEMPLATE = '''
                     isoDate = d.toISOString().split('T')[0];
                 }
             }
-            const timeOnly = timeStr.replace(/[A-Z]+\s*\d+\s*/i, '').trim();
+            const timeOnly = timeStr.replace(/[A-Z]+\\s*\\d+\\s*/i, '').trim();
             return `<div class="item">
                 <div class="item-row"><label>Date</label><input type="date" id="date_${idx}" value="${isoDate}" onchange="updateTime(${idx},this.value,document.getElementById('time_${idx}').value)" style="background:#1a1a22;border:1px solid #2a2a35;color:#c0c8d0;padding:8px;border-radius:4px;"></div>
                 <div class="item-row"><label>Time</label><input id="time_${idx}" value="${timeOnly}" onchange="updateTime(${idx},document.getElementById('date_${idx}').value,this.value)" placeholder="HH:MM"></div>
